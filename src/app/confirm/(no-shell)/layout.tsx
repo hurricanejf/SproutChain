@@ -1,7 +1,9 @@
-export default function NoShellLayout({
+"use client";
+
+export default function ConfirmLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  return children;  // no LayoutShell, no Header, no Footer
+  return <>{children}</>;
 }
