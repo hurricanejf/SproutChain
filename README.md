@@ -15,10 +15,10 @@ collaborators and a clean base for future expansion.
 
 SproutChain explores concepts like:
 
--   🌿 Creature evolution stages\
--   🎨 Dynamic artwork based on creature data\
--   📊 Stats, attributes, and progression logic\
--   🧩 Modular UI built with reusable components\
+-   🌿 Creature evolution stages
+-   🎨 Dynamic artwork based on creature data
+-   📊 Stats, attributes, and progression logic
+-   🧩 Modular UI built with reusable components
 -   🏗️ A scalable architecture ready for additional features
 
 The entire project is designed to stay flexible while leaving room for
@@ -60,15 +60,15 @@ Main entry point:
 
 ## 🧰 **Tech Stack**
 
--   ⚡ **Next.js 14** (App Router)\
--   ⚛️ **React 18**\
--   🟦 **TypeScript**\
--   💾 **Supabase** (`@supabase/supabase-js` + `@supabase/ssr`)\
--   🐻 **Zustand** for state management\
--   🎨 **TailwindCSS v4**\
--   🧩 **clsx** for class composition\
--   ✨ **Geist font** for UI polish\
--   🔧 **ESLint** + **React Compiler** (React Forget)\
+-   ⚡ **Next.js 14** (App Router)
+-   ⚛️ **React 18**
+-   🟦 **TypeScript**
+-   💾 **Supabase** (`@supabase/supabase-js` + `@supabase/ssr`)
+-   🐻 **Zustand** for state management
+-   🎨 **TailwindCSS v4**
+-   🧩 **clsx** for class composition
+-   ✨ **Geist font** for UI polish
+-   🔧 **ESLint** + **React Compiler** (React Forget)
 -   ▲ **Vercel** for deployment and hosting
 
 ------------------------------------------------------------------------
@@ -78,10 +78,10 @@ Main entry point:
 SproutChain is intentionally lightweight. Not a finished game --- a
 foundation to experiment with:
 
--   Keep the architecture flexible\
--   Build reusable components\
--   Keep creature logic modular\
--   Support future scale\
+-   Keep the architecture flexible
+-   Build reusable components
+-   Keep creature logic modular
+-   Support future scale
 -   Iterate fast
 
 This repo is the early soil for bigger ideas.
@@ -90,18 +90,18 @@ This repo is the early soil for bigger ideas.
 
 ## 📚 **Next.js Resources**
 
--   https://nextjs.org/docs\
--   https://nextjs.org/learn\
+-   https://nextjs.org/docs
+-   https://nextjs.org/learn
 -   https://github.com/vercel/next.js
 
 ------------------------------------------------------------------------
 
 ## ☁️ **Deployment**
 
-Deploy through Vercel:\
+Deploy through Vercel:
 https://vercel.com/new?filter=next.js
 
-Official deployment docs:\
+Official deployment docs:
 https://nextjs.org/docs/app/building-your-application/deploying
 
 ------------------------------------------------------------------------
@@ -110,12 +110,12 @@ https://nextjs.org/docs/app/building-your-application/deploying
 
 Potential future systems:
 
--   More evolution stages\
--   Creature personalities and stats\
--   Inventory and item mechanics\
--   User profiles or persistent saves\
--   Animation + microinteraction upgrades\
--   Expanded creature world lore\
+-   More evolution stages
+-   Creature personalities and stats
+-   Inventory and item mechanics
+-   User profiles or persistent saves
+-   Animation + microinteraction upgrades
+-   Expanded creature world lore
 -   New UI layouts and navigation patterns
 
 This will evolve as the project grows.
@@ -126,13 +126,13 @@ This will evolve as the project grows.
 
 If joining in:
 
-1.  Clone the repo\
-2.  Create a feature branch\
-3.  Keep PRs small and focused\
-4.  Follow existing TypeScript patterns\
+1.  Clone the repo
+2.  Create a feature branch
+3.  Keep PRs small and focused
+4.  Follow existing TypeScript patterns
 5.  Keep logic modular
 
 ------------------------------------------------------------------------
 
-SproutChain will continue to grow over time.\
+SproutChain will continue to grow over time.
 This repo is the seed. 🌱
