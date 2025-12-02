@@ -9,7 +9,7 @@ export default function ResetPasswordPage() {
   const [msg, setMsg] = useState("");
   const router = useRouter();
 
-  async function handleReset(e) {
+  async function handleReset(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
     const { error } = await supabaseBrowser.auth.updateUser({ password });
@@ -36,7 +36,9 @@ export default function ResetPasswordPage() {
           required
           className="w-full p-3 bg-zinc-800 border border-zinc-700 rounded"
           placeholder="New Password"
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setPassword(e.target.value)
+          }
         />
 
         <button className="w-full py-3 bg-green-600 rounded font-semibold">

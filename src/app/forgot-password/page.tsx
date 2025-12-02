@@ -7,7 +7,7 @@ export default function ForgotPasswordPage() {
   const [email, setEmail] = useState("");
   const [msg, setMsg] = useState("");
 
-  async function handleForgot(e) {
+  async function handleForgot(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
     const { error } = await supabaseBrowser.auth.resetPasswordForEmail(email, {
@@ -34,7 +34,9 @@ export default function ForgotPasswordPage() {
           required
           className="w-full p-3 bg-zinc-800 border border-zinc-700 rounded"
           placeholder="Email"
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setEmail(e.target.value)
+          }
         />
 
         <button className="w-full py-3 bg-green-600 rounded font-semibold">

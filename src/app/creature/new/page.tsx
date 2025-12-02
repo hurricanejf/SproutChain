@@ -19,19 +19,27 @@ export default function NewCreaturePage() {
 
   useEffect(() => {
     async function check() {
-      const { data: { user } } = await supabase.auth.getUser();
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
       if (!user) router.push("/login");
     }
     check();
   }, [router]);
 
-  async function createCreature(e) {
+  async function createCreature(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setLoading(true);
 
     const {
       data: { user },
     } = await supabase.auth.getUser();
+
+    // TS FIX — ensure user exists
+    if (!user) {
+      router.push("/login");
+      return;
+    }
 
     const { data, error } = await supabase
       .from("creatures")
@@ -63,7 +71,9 @@ export default function NewCreaturePage() {
             type="text"
             required
             value={name}
-            onChange={(e) => setName(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setName(e.target.value)
+            }
             className="w-full px-4 py-2 rounded-lg bg-zinc-800 text-zinc-100 border border-zinc-700"
           />
         </div>
@@ -72,7 +82,9 @@ export default function NewCreaturePage() {
           <label className="block mb-1 text-zinc-400">Species</label>
           <select
             value={species}
-            onChange={(e) => setSpecies(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
+              setSpecies(e.target.value)
+            }
             className="w-full px-4 py-2 rounded-lg bg-zinc-800 text-zinc-100 border border-zinc-700"
           >
             {SPECIES.map((s) => (

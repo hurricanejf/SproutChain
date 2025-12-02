@@ -2,13 +2,17 @@ import Image from "next/image";
 import Link from "next/link";
 import { createServerSupabase } from "@/lib/server";
 
-const EVOLUTION_ART = {
+const EVOLUTION_ART: Record<1 | 2 | 3, string> = {
   1: "/creatures/stage1.png",
   2: "/creatures/stage2.png",
   3: "/creatures/stage3.png",
 };
 
-export default async function CreatureProfilePage({ params }) {
+export default async function CreatureProfilePage({
+  params,
+}: {
+  params: { id: string };
+}) {
   const supabase = createServerSupabase();
 
   const {
@@ -57,7 +61,7 @@ export default async function CreatureProfilePage({ params }) {
           <div className="absolute -inset-2 rounded-xl bg-green-500/20 blur-xl"></div>
 
           <Image
-            src={EVOLUTION_ART[creature.stage]}
+            src={EVOLUTION_ART[creature.stage as 1 | 2 | 3]}
             width={220}
             height={220}
             alt={`${creature.species} Stage ${creature.stage}`}
@@ -111,7 +115,10 @@ export default async function CreatureProfilePage({ params }) {
 
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
           {uploads?.map((u) => (
-            <div key={u.id} className="bg-zinc-900 border border-zinc-800 p-2 rounded-lg">
+            <div
+              key={u.id}
+              className="bg-zinc-900 border border-zinc-800 p-2 rounded-lg"
+            >
               <Image
                 src={u.photo_url}
                 width={200}

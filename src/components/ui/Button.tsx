@@ -1,6 +1,12 @@
 import clsx from "clsx";
+import { ReactNode } from "react";
 
-export function Button({ children, variant = "primary", ...props }) {
+type ButtonProps = {
+  children: ReactNode;
+  variant?: "primary" | "secondary" | "ghost";
+} & React.ButtonHTMLAttributes<HTMLButtonElement>;
+
+export function Button({ children, variant = "primary", ...props }: ButtonProps) {
   const base =
     "px-5 py-3 rounded-lg font-semibold transition shadow disabled:opacity-50";
 
@@ -12,7 +18,7 @@ export function Button({ children, variant = "primary", ...props }) {
   };
 
   return (
-    <button {...props} className={clsx(base, styles[variant])}>
+    <button {...props} className={clsx(base, styles[variant], props.className)}>
       {children}
     </button>
   );

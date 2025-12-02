@@ -8,7 +8,7 @@ export default function SignupPage() {
   const [password, setPassword] = useState("");
   const [msg, setMsg] = useState("");
 
-  async function handleSignup(e) {
+  async function handleSignup(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
     const { error } = await supabaseBrowser.auth.signUp({
@@ -31,7 +31,7 @@ export default function SignupPage() {
     <div className="max-w-md mx-auto p-6 text-zinc-300">
       <h1 className="text-3xl font-bold mb-6 text-green-400">Create Account</h1>
 
-      {/* ✅ if message exists, show success */}
+      {/* Show success message */}
       {msg && (
         <div className="space-y-4 text-center">
           <p className="text-green-400">{msg}</p>
@@ -45,7 +45,7 @@ export default function SignupPage() {
         </div>
       )}
 
-      {/* ❌ only show form if no message */}
+      {/* Only show form if no message */}
       {!msg && (
         <form onSubmit={handleSignup} className="space-y-4">
           <input
@@ -53,7 +53,9 @@ export default function SignupPage() {
             required
             className="w-full p-3 bg-zinc-800 border border-zinc-700 rounded"
             placeholder="Email"
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setEmail(e.target.value)
+            }
           />
 
           <input
@@ -61,12 +63,12 @@ export default function SignupPage() {
             required
             className="w-full p-3 bg-zinc-800 border border-zinc-700 rounded"
             placeholder="Password"
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setPassword(e.target.value)
+            }
           />
 
-          <button
-            className="w-full py-3 bg-green-600 rounded font-semibold hover:bg-green-500"
-          >
+          <button className="w-full py-3 bg-green-600 rounded font-semibold hover:bg-green-500">
             Create Account
           </button>
         </form>

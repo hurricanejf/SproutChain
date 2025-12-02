@@ -2,10 +2,24 @@ import Image from "next/image";
 import Link from "next/link";
 import { createServerSupabase } from "@/lib/server";
 
-const EVOLUTION_ART = {
+// Evolution art map with typed numeric keys
+const EVOLUTION_ART: Record<number, string> = {
   1: "/creatures/stage1.png",
   2: "/creatures/stage2.png",
   3: "/creatures/stage3.png",
+};
+
+// Type the creatures table rows
+type Creature = {
+  id: number;
+  name: string;
+  species: string;
+  stage: number;
+  xp: number;
+  total_uploads: number;
+  created_at: string;
+  user_id: string;
+  [key: string]: any; // allows extra fields safely
 };
 
 export default async function GardenPage() {
@@ -15,13 +29,16 @@ export default async function GardenPage() {
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (!user) return null; // middleware redirects
+  if (!user) return null; // middleware should redirect
 
   const { data: creatures } = await supabase
     .from("creatures")
     .select("*")
     .eq("user_id", user.id)
     .order("created_at", { ascending: true });
+
+  // Cast to typed array (safe because we know the table schema)
+  const typedCreatures = creatures as Creature[] | null;
 
   return (
     <div className="space-y-8 text-zinc-300">
@@ -36,12 +53,12 @@ export default async function GardenPage() {
         </Link>
       </div>
 
-      {!creatures?.length && (
+      {!typedCreatures?.length && (
         <p className="text-zinc-500">You have no creatures yet.</p>
       )}
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {creatures?.map((c) => (
+        {typedCreatures?.map((c) => (
           <Link
             key={c.id}
             href={`/creature/${c.id}`}

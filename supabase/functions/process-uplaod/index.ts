@@ -1,10 +1,11 @@
+// @ts-nocheck
 // SproutChain Evolution Logic
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 Deno.serve(async (req) => {
   const supabase = createClient(
     Deno.env.get("SUPABASE_URL")!,
-    Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!  // secure internal key
+    Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!
   );
 
   const { creature_id, photo_url } = await req.json();
@@ -57,8 +58,7 @@ Deno.serve(async (req) => {
     })
     .eq("id", creature_id);
 
-  return new Response(
-    JSON.stringify({ success: true, xp, stage }),
-    { status: 200 }
-  );
+  return new Response(JSON.stringify({ success: true, xp, stage }), {
+    status: 200,
+  });
 });

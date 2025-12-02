@@ -2,6 +2,17 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createServerSupabase } from "@/lib/supabaseServer";
 
+// Creature type to enforce strong typing
+type Creature = {
+  id: number;
+  name: string;
+  species: string;
+  stage: number;
+  created_at: string;
+  user_id: string;
+  [key: string]: any; // allow extra fields safely
+};
+
 export default async function HomePage({
   searchParams,
 }: {
@@ -48,13 +59,15 @@ export default async function HomePage({
     );
   }
 
-  // LOGGED IN VIEW
-  const { data: creatures = [] } = await supabase
+  // LOGGED IN VIEW — force creatures to typed array, never null
+  const { data: creaturesRaw } = await supabase
     .from("creatures")
     .select("*")
     .eq("user_id", user.id)
     .order("created_at", { ascending: false })
     .limit(3);
+
+  const creatures: Creature[] = creaturesRaw ?? [];
 
   return (
     <div className="space-y-12 text-zinc-300">
@@ -72,7 +85,7 @@ export default async function HomePage({
         </Link>
 
         <Link
-          href="/creatures/new"
+          href="/creature/new"
           className="px-5 py-3 bg-zinc-800 text-zinc-200 border border-zinc-700 rounded-lg hover:border-green-400"
         >
           Create New Creature

@@ -4,12 +4,18 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { createBrowserClient } from "@supabase/ssr";
 
+type PageProps = {
+  params: {
+    id: string;
+  };
+};
+
 const supabase = createBrowserClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 );
 
-export default function CreatureUploadPage({ params }) {
+export default function CreatureUploadPage({ params }: PageProps) {
   const creatureId = params.id;
   const router = useRouter();
 
@@ -38,12 +44,15 @@ export default function CreatureUploadPage({ params }) {
     check();
   }, [creatureId, router]);
 
-  async function handleUpload(e) {
+  async function handleUpload(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setErrorMsg("");
     setUploading(true);
 
-    const file = e.target.photo.files?.[0];
+    const form = e.currentTarget;
+    const fileInput = form.elements.namedItem("photo") as HTMLInputElement;
+    const file = fileInput?.files?.[0];
+
     if (!file) {
       setErrorMsg("Please choose a file.");
       setUploading(false);

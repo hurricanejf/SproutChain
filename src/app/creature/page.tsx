@@ -4,15 +4,25 @@ import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { supabase } from "../../lib/supabase";
 
-const EVOLUTION = {
+// Evolution image map with typed numeric keys
+const EVOLUTION: Record<number, string> = {
   1: "/creatures/stage1.png",
   2: "/creatures/stage2.png",
   3: "/creatures/stage3.png",
 };
 
+// Type for creature progress entries coming from DB
+type ProgressEntry = {
+  id: number;
+  stage: number;              // important typing fix
+  photo_url: string;
+  created_at: string;
+  [key: string]: any;         // allows additional columns without errors
+};
+
 export default function CreaturePage() {
-  const [entries, setEntries] = useState<any[]>([]);
-  const [selected, setSelected] = useState<any | null>(null);
+  const [entries, setEntries] = useState<ProgressEntry[]>([]);
+  const [selected, setSelected] = useState<ProgressEntry | null>(null);
   const topRef = useRef<HTMLDivElement | null>(null);
 
   // Load creature progress
@@ -24,8 +34,8 @@ export default function CreaturePage() {
         .order("created_at", { ascending: false });
 
       if (data) {
-        setEntries(data);
-        setSelected(data[0]); // start with the most recent entry
+        setEntries(data as ProgressEntry[]);
+        setSelected(data[0] as ProgressEntry); // start with latest
       }
     }
     load();
@@ -49,7 +59,6 @@ export default function CreaturePage() {
 
   return (
     <div className="space-y-14">
-
       {/* Anchor for scroll */}
       <div ref={topRef}></div>
 
@@ -57,14 +66,12 @@ export default function CreaturePage() {
 
       {selected && (
         <section className="bg-zinc-900 border border-zinc-800 rounded-xl p-8 shadow-xl space-y-10">
-
           <p className="text-lg tracking-wide">
             <span className="text-green-400 font-semibold">Stage:</span>{" "}
             {selected.stage}
           </p>
 
           <div className="flex flex-col md:flex-row items-center md:items-start gap-12">
-
             {/* Evolution Art */}
             <div className="relative">
               <div className="absolute -inset-3 rounded-2xl bg-green-500/25 blur-xl animate-pulse"></div>
