@@ -11,17 +11,17 @@ export default function ConfirmLogic() {
   const [msg, setMsg] = useState("Verifying...");
 
   useEffect(() => {
-    const rawCode = params.get("code");
-
-    // If no code is present, mark invalid
-    if (!rawCode) {
-      setMsg("Invalid confirmation link.");
-      return;
-    }
-
     async function run() {
-      // Create a new variable that TS KNOWS is a string
-      const code: string = rawCode;
+      // Extract INSIDE async function so TS narrows properly
+      const raw = params.get("code");
+
+      if (!raw) {
+        setMsg("Invalid confirmation link.");
+        return;
+      }
+
+      // TS knows raw is string here
+      const code: string = raw;
 
       const { error } = await supabaseBrowser.auth.exchangeCodeForSession(code);
 
