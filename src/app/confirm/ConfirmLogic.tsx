@@ -7,6 +7,7 @@ import { supabaseBrowser } from "@/lib/supabaseBrowser";
 export default function ConfirmLogic() {
   const router = useRouter();
   const params = useSearchParams();
+
   const [msg, setMsg] = useState("Verifying your email…");
 
   const code = params.get("code");
@@ -15,20 +16,24 @@ export default function ConfirmLogic() {
   const errorDesc = params.get("error_description");
 
   useEffect(() => {
-    // Handle error from Supabase magic link
+    // Handle Supabase magic-link error redirects
     if (error) {
       setMsg(errorDesc || "Invalid or expired link.");
       return;
     }
 
-    // Normal flow
+    // Handle missing code
     if (!code) {
       setMsg("Invalid confirmation link.");
       return;
     }
 
     async function run() {
-      const { error: exchangeError } = await supabaseBrowser.auth.exchangeCodeForSession(code);
+      // SAFE narrowing so TS knows code is a string
+      const safeCode: string = code;
+
+      const { error: exchangeError } =
+        await supabaseBrowser.auth.exchangeCodeForSession(safeCode);
 
       if (exchangeError) {
         setMsg(exchangeError.message);
