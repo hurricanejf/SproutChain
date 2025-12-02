@@ -4,40 +4,69 @@ import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { supabase } from "../../lib/supabase";
 
-// Evolution image map with typed numeric keys
+// Evolution image map
 const EVOLUTION: Record<number, string> = {
   1: "/creatures/stage1.png",
   2: "/creatures/stage2.png",
   3: "/creatures/stage3.png",
 };
 
-// Type for creature progress entries coming from DB
 type ProgressEntry = {
   id: number;
-  stage: number;              // important typing fix
+  creature_id: number;
+  stage: number;
   photo_url: string;
   created_at: string;
-  [key: string]: any;         // allows additional columns without errors
+  [key: string]: any;
 };
 
 export default function CreaturePage() {
   const [entries, setEntries] = useState<ProgressEntry[]>([]);
   const [selected, setSelected] = useState<ProgressEntry | null>(null);
+  const [loading, setLoading] = useState(true);
   const topRef = useRef<HTMLDivElement | null>(null);
 
-  // Load creature progress
   useEffect(() => {
     async function load() {
-      const { data } = await supabase
+      // 1. Get logged-in user
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+
+      if (!user) {
+        setLoading(false);
+        return;
+      }
+
+      // 2. Find this user’s creature
+      const { data: creatures } = await supabase
+        .from("creatures")
+        .select("*")
+        .eq("user_id", user.id)
+        .order("created_at", { ascending: true });
+
+      if (!creatures || creatures.length === 0) {
+        setLoading(false);
+        return;
+      }
+
+      const creature = creatures[0];
+
+      // 3. Load progress entries for THIS creature
+      const { data: progress } = await supabase
         .from("creature_progress")
         .select("*")
+        .eq("creature_id", creature.id)
         .order("created_at", { ascending: false });
 
-      if (data) {
-        setEntries(data as ProgressEntry[]);
-        setSelected(data[0] as ProgressEntry); // start with latest
+      if (progress) {
+        setEntries(progress as ProgressEntry[]);
+        setSelected(progress[0] as ProgressEntry);
       }
+
+      setLoading(false);
     }
+
     load();
   }, []);
 
@@ -47,6 +76,12 @@ export default function CreaturePage() {
       topRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }, [selected]);
+
+  if (loading) {
+    return (
+      <div className="text-zinc-400">Loading your creature…</div>
+    );
+  }
 
   if (entries.length === 0) {
     return (
@@ -59,7 +94,6 @@ export default function CreaturePage() {
 
   return (
     <div className="space-y-14">
-      {/* Anchor for scroll */}
       <div ref={topRef}></div>
 
       <h1 className="text-3xl font-bold text-green-400">Your Creature</h1>
@@ -105,9 +139,11 @@ export default function CreaturePage() {
         </section>
       )}
 
-      {/* History Section */}
+      {/* Growth History */}
       <section className="space-y-6">
-        <h2 className="text-2xl font-semibold text-green-300">Growth History</h2>
+        <h2 className="text-2xl font-semibold text-green-300">
+          Growth History
+        </h2>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
           {entries.map((entry) => (

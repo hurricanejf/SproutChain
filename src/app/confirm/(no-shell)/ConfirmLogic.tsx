@@ -11,26 +11,25 @@ export default function ConfirmLogic() {
   const [msg, setMsg] = useState("Verifying...");
 
   useEffect(() => {
-    // Get the code from the URL on the client
-    const codeParam = params.get("code");
+    const rawCode = params.get("code");
 
-    if (!codeParam) {
+    // If no code is present, mark invalid
+    if (!rawCode) {
       setMsg("Invalid confirmation link.");
       return;
     }
 
     async function run() {
-      // codeParam is guaranteed to be a string here
-      const { error } = await supabaseBrowser.auth.exchangeCodeForSession(
-        codeParam
-      );
+      // Create a new variable that TS KNOWS is a string
+      const code: string = rawCode;
+
+      const { error } = await supabaseBrowser.auth.exchangeCodeForSession(code);
 
       if (error) {
         setMsg(error.message);
         return;
       }
 
-      // Success – redirect home
       router.replace("/");
     }
 
