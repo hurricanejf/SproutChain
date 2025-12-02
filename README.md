@@ -1,36 +1,132 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🌱 **SproutChain**
 
-## Getting Started
+SproutChain is a growing digital ecosystem built with Next.js. The goal
+is to create a foundation for interactive, evolving creatures and the
+systems that support them. It serves as a development sandbox where
+mechanics, UI components, data models, artwork, and gameplay ideas can
+take shape without friction.
 
-First, run the development server:
+This repository is intended to be a solid starting point for
+collaborators and a clean base for future expansion.
 
-```bash
+------------------------------------------------------------------------
+
+## 🚀 **Overview**
+
+SproutChain explores concepts like:
+
+-   🌿 Creature evolution stages\
+-   🎨 Dynamic artwork based on creature data\
+-   📊 Stats, attributes, and progression logic\
+-   🧩 Modular UI built with reusable components\
+-   🏗️ A scalable architecture ready for additional features
+
+The entire project is designed to stay flexible while leaving room for
+creativity and future expansion.
+
+------------------------------------------------------------------------
+
+## 🛠️ **Getting Started**
+
+Install dependencies and start the dev server:
+
+``` bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Then open:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+    http://localhost:3000
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Edits inside `src/app` will automatically hot-reload during development.
 
-## Learn More
+Main entry point:
 
-To learn more about Next.js, take a look at the following resources:
+    src/app/page.tsx
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+------------------------------------------------------------------------
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 📁 **Project Structure**
 
-## Deploy on Vercel
+    src/
+     ├─ app/               # Next.js App Router pages
+     ├─ components/        # Reusable UI components
+     ├─ lib/               # Utilities, constants, creature data
+     ├─ public/            # Static assets (creature art, icons, etc.)
+     └─ styles/            # Global styles and theme configuration
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+------------------------------------------------------------------------
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🧰 **Tech Stack**
+
+-   ⚡ Next.js 14 (App Router)\
+-   🟦 TypeScript\
+-   ▲ Vercel (deployment + hosting)\
+-   ✨ Geist font for clean, modern typography
+
+------------------------------------------------------------------------
+
+## 📐 **Development Philosophy**
+
+SproutChain is intentionally lightweight. Not a finished game --- a
+foundation to experiment with:
+
+-   Keep the architecture flexible\
+-   Build reusable components\
+-   Keep creature logic modular\
+-   Support future scale\
+-   Iterate fast
+
+This repo is the early soil for bigger ideas.
+
+------------------------------------------------------------------------
+
+## 📚 **Next.js Resources**
+
+-   https://nextjs.org/docs\
+-   https://nextjs.org/learn\
+-   https://github.com/vercel/next.js
+
+------------------------------------------------------------------------
+
+## ☁️ **Deployment**
+
+Deploy through Vercel:\
+https://vercel.com/new?filter=next.js
+
+Official deployment docs:\
+https://nextjs.org/docs/app/building-your-application/deploying
+
+------------------------------------------------------------------------
+
+## 🗺️ **Roadmap (High-Level)**
+
+Potential future systems:
+
+-   More evolution stages\
+-   Creature personalities and stats\
+-   Inventory and item mechanics\
+-   User profiles or persistent saves\
+-   Animation + microinteraction upgrades\
+-   Expanded creature world lore\
+-   New UI layouts and navigation patterns
+
+This will evolve as the project grows.
+
+------------------------------------------------------------------------
+
+## 🤝 **Contributing**
+
+If joining in:
+
+1.  Clone the repo\
+2.  Create a feature branch\
+3.  Keep PRs small and focused\
+4.  Follow existing TypeScript patterns\
+5.  Keep logic modular
+
+------------------------------------------------------------------------
+
+SproutChain will continue to grow over time.\
+This repo is the seed. 🌱
