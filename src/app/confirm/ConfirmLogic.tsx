@@ -12,28 +12,25 @@ export default function ConfirmLogic() {
 
   const code = params.get("code");
   const error = params.get("error");
-  const errorCode = params.get("error_code");
   const errorDesc = params.get("error_description");
 
   useEffect(() => {
-    // Handle Supabase magic-link error redirects
+    // If Supabase sent an error in the URL
     if (error) {
       setMsg(errorDesc || "Invalid or expired link.");
       return;
     }
 
-    // Handle missing code
+    // If code is missing entirely
     if (!code) {
       setMsg("Invalid confirmation link.");
       return;
     }
 
     async function run() {
-      // SAFE narrowing so TS knows code is a string
-      const safeCode: string = code;
-
+      // Use non-null assertion because we've already validated code above
       const { error: exchangeError } =
-        await supabaseBrowser.auth.exchangeCodeForSession(safeCode);
+        await supabaseBrowser.auth.exchangeCodeForSession(code!);
 
       if (exchangeError) {
         setMsg(exchangeError.message);
