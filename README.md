@@ -60,10 +60,16 @@ Main entry point:
 
 ## 🧰 **Tech Stack**
 
--   ⚡ Next.js 14 (App Router)\
--   🟦 TypeScript\
--   ▲ Vercel (deployment + hosting)\
--   ✨ Geist font for clean, modern typography
+-   ⚡ **Next.js 14** (App Router)\
+-   ⚛️ **React 18**\
+-   🟦 **TypeScript**\
+-   💾 **Supabase** (`@supabase/supabase-js` + `@supabase/ssr`)\
+-   🐻 **Zustand** for state management\
+-   🎨 **TailwindCSS v4**\
+-   🧩 **clsx** for class composition\
+-   ✨ **Geist font** for UI polish\
+-   🔧 **ESLint** + **React Compiler** (React Forget)\
+-   ▲ **Vercel** for deployment and hosting
 
 ------------------------------------------------------------------------
 
